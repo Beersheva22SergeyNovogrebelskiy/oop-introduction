@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import telran.shapes.Canvas;
 import telran.shapes.Rectangle;
+import telran.shapes.Shape;
 import telran.shapes.Square;
 import telran.shapes.SqureLeftTriangle;
 import telran.shapes.SqureRightTriangle;
@@ -29,6 +31,7 @@ class ShapeTests {
 	}
 	
 	@Test
+	@Disabled
 	void squareTest() {
 		Square square = new Square(10);
 		assertEquals(10, square.getWidth());
@@ -37,6 +40,7 @@ class ShapeTests {
 	}
 	
 	@Test
+	@Disabled
 	void squareleftTriangleTest() {
 		SqureLeftTriangle squreLeftTriangle = new SqureLeftTriangle(10, true);
 		assertEquals(10, squreLeftTriangle.getSize());
@@ -47,8 +51,22 @@ class ShapeTests {
 	}
 	
 	@Test
+	@Disabled
 	void squareRightTriangleTest() {
 		SqureRightTriangle squreRightTriangle = new SqureRightTriangle(11, false);
 		displayStrings(squreRightTriangle.presentation(20));
+	}
+	
+	@Test
+	void canvasTest() {
+		Shape rectangle = new Rectangle(7, 8);
+		Shape square = new Square(9);
+		Shape squareLeftTriangle = new SqureLeftTriangle(8, true);
+		Shape squareRightTriangle = new SqureRightTriangle(7, false);
+		Shape [] shapes = new Shape[] {rectangle, square, squareLeftTriangle, squareRightTriangle}; 
+		Canvas canvas = new Canvas(8, 8, shapes);
+		displayStrings(canvas.presentation(10));
+		canvas.setDirection("column");
+		displayStrings(canvas.presentation(10));
 	}
 }

@@ -1,56 +1,45 @@
 package telran.shapes;
 
+import java.util.Arrays;
+
 public class SquareTriangle extends Square {
-	
 	private boolean isLeftDiagonal;
+
 	protected SquareTriangle(int size, boolean isLeftDiagonal) {
 		super(size);
 		this.isLeftDiagonal = isLeftDiagonal;
 	}
-	
-	@Override
-	public String[] presentation(int offset) {
-		String res[] = new String[size];
-		char[][] triangle = new char[size][size];
-		fillGaps(triangle);
-		if(isLeftDiagonal) {
-			buildLeftTriangle(triangle);
-		} else {
-			buildRightTriangle(triangle);
-		}
-		fromCharToString(triangle, res, offset);
-		return res;
-	}
-	private void fromCharToString(char[][] triangle, String[] res, int offset) {
-		for(int i = 0; i < res.length; i++) {
-			res[i] = " ".repeat(offset);
-		}
-		for(int i = 0; i < res.length; i++) {
-			for(int j = 0; j < res.length; j++) {
-				res[i] = res[i] + Character.toString(triangle[i][j]);
-			}
-		}
+
+	public boolean isLeftDiagonal() {
+		return isLeftDiagonal;
 	}
 
-	private void fillGaps(char[][] triangle) {
-		for(int i = 0; i < triangle.length; i++) {
-			for(int j = 0; j < triangle[i].length; j++) {
-				triangle[i][j] = ' ';
+	private char[][] buildTriangle() {
+		int size = getWidth();
+		char symbolChar = symbol.charAt(0);
+		char[][] triangle = new char[size][size];
+		for (int i = 0; i < size; i++) {
+			Arrays.fill(triangle[i], ' ');
+			if (isLeftDiagonal) {
+				triangle[i][size - 1] = symbolChar;
+				triangle[i][size - i - 1] = symbolChar;
+			} else {
+				triangle[i][0] = symbolChar;
+				triangle[i][i] = symbolChar;
 			}
 		}
+		return triangle;
 	}
-	private void buildRightTriangle(char[][] triangle) {
-		for(int i = 0; i < triangle.length; i++) {
-			triangle[triangle.length - 1][i] = '*';
-			triangle[i][triangle.length - 1] = '*';
-			triangle[i][triangle.length - 1 - i] = '*';
+
+	public String[] presentation(int offset) {
+		int size = getWidth();
+		String[] res = new String[size];
+		int lastline = size - 1;
+		res[lastline] = getLine(offset);
+		char[][] triangle = buildTriangle();
+		for (int i = 0; i < lastline; i++) {
+			res[i] = getOffset(offset) + new String(triangle[i]);
 		}
-	}
-	private void buildLeftTriangle(char[][] triangle) {
-		for(int i = 0; i < triangle.length; i++) {
-			triangle[triangle.length - 1][i] = '*';
-			triangle[i][0] = '*';
-			triangle[i][i] = '*';
-		}
+		return res;
 	}
 }
