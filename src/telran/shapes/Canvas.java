@@ -15,10 +15,13 @@ public class Canvas extends Shape{
 		setEqualSizeForPrinting(shapes);
 		String[] res = shapes[0].presentation(offset);
 		for (int j = 1; j < shapes.length; j++) {
+			if (shapes[j] instanceof Canvas) {
+				((Canvas) shapes[j]).setDirection(direction);
+			}
 			if (direction == "row") {
 				shapeAdditionForRow(res, shapes[j].presentation(margin));
 			} else {
-				res = new String[getHigthOfColumnArray()];
+				res = new String[getHeight()];
 				shapeAdditionForColumn(res, shapes[j].presentation(margin), offset);
 			}
 		}
@@ -93,6 +96,19 @@ public class Canvas extends Shape{
 			marginRow[i] = " ".repeat(width);
 		}
 		return marginRow;
+	}
+	
+	@Override
+	public int getHeight() {
+		return direction == "row"? height : getHeightOfColumn();
+	}
+	
+	public int getHeightOfColumn() {
+		int totalHeightOfColumn = shapes[0].getHeight();
+		for (int i = 1; i < shapes.length; i++) {
+			totalHeightOfColumn += margin + shapes[i].getHeight();
+		}
+		return totalHeightOfColumn;
 	}
 
 }
