@@ -47,57 +47,60 @@ public static <T> int binarySearch(T[] arraySorted, T key, Comparator<T> comp) {
 }
 
 public static<T> T[] filter(T[] array, Predicate<T> predicate) {
-	int countPredicate = getCountPredicate(array, predicate);
-	
-	T[] res = Arrays.copyOf(array, countPredicate);
+	T[] res = Arrays.copyOf(array, array.length);
 	int index = 0;
 	for(T element: array) {
 		if(predicate.test(element)) {
 			res[index++] = element;
 		}
 	}
-	
-	return res;
-}
-
-private static <T> int getCountPredicate(T[] array, Predicate<T> predicate) {
-	int res = 0;
-	
-	for(T element: array) {
-		if(predicate.test(element)) {
-			res++;
-		}
-	}
-	
-	return res;
+	return Arrays.copyOf(res, index);
 }
 
 public static <T> T[] removeIf(T[] array, Predicate<T> predicate) {
 	return filter(array, predicate.negate());
-	
 }
+
 public static <T> T[] removeRepeated(T[] array) {
-	T[] res = Arrays.copyOf(array, array.length);
-	Arrays.fill(res, null);
-	int index = 0;
-	for (int i = 0; i < array.length; i++) {
-		if (!contains(res, array[i])) {				
-			res[index++] = array[i];
+	final Object helper[] = new Object[array.length];
+	final int index[] = {0};
+	return removeIf(array, element -> {
+		boolean res = true;
+		if (!contains(helper, element)) {
+			helper[index[0]++] = element;
+			res = false;
 		}
-	}
-	return removeIf(res, x -> x == null);
+		return res;
+	});
 }
 public static <T> boolean contains(T[] array, T pattern) {
-	boolean res = false;
 	int index = 0;
-	while(index < array.length && !res) {
-		if (pattern == null && array[index] == null || 
-				pattern != null && pattern.equals(array[index])) {
-			res = true;
-		}
+	while(index < array.length && !isEqual(array[index], pattern)) {
 		index++;
 	}
+	
+	return index < array.length;
+}
+static private boolean isEqual(Object element, Object pattern) {
+	return element == null ? element == pattern : element.equals(pattern);
+}
+public static <T> String join(T[] array, String delimiter) {
+	String res = "";
+	if (array.length > 0) {
+		StringBuilder builder = new StringBuilder(array[0].toString());
+		for (int i = 1; i < array.length; i++) {
+			builder.append(delimiter).append(array[i]);
+		}
+		res = builder.toString();
+	}
 	return res;
+}
+
+static <T> void printArray(T[] array) {
+	for(T element: array) {
+		System.out.print(element + "\t");
+	}
+	System.out.println();
 }
 
 }

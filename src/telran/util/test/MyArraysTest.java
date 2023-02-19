@@ -65,20 +65,19 @@ class MyArraysTest {
 	
 	@Test
 	void removeIfTest() {
-		Integer expectedNumbers[] = {13, 2, -8, 47, 10, -7, 7};
-		Predicate<Integer> predEven = t -> t.equals(100);
-		MyArrays.removeIf(numbers, predEven);
-		assertArrayEquals(expectedNumbers, MyArrays.removeIf(numbers, predEven));
+		Integer expected[] = {2, -8, 100, 10};
+		assertArrayEquals(expected, MyArrays.removeIf(numbers, n -> n % 2 != 0));
 	}
 	
 	@Test
-	void removeRepeatedTest() {
-		Integer numbers[] = {13, 2, -8, 47, 2, 100, 10, -7, 10, 7};
-		String strings[] = {"ab", "abm", "ab", "abmb", "abmbc", "abm"};
-		Integer expectedNumbers[] = {13, 2, -8, 47, 100, 10, -7, 7};
-		String expectedStr[] = {"ab", "abm", "abmb", "abmbc"};
-		assertArrayEquals(expectedNumbers, MyArrays.removeRepeated(numbers));
-		assertArrayEquals(expectedStr, MyArrays.removeRepeated(strings));
+	void removeRepeated() {
+		String strings [] = {"aaa", "aaa", "cccc", "aaa", "aaa"};
+		printArray(MyArrays.removeRepeated(strings));
+		assertArrayEquals(new String[] {"aaa", "cccc"},MyArrays.removeRepeated(strings) );
+		Integer[] numbersRepeatedValues = { 13, 13, 2, -8, -8, 47, 100, 100, 100, 10, 7, 7 , 13};
+		Integer expected2[] = { 13,  2, -8,  47, 100, 10, 7};
+		printArray(MyArrays.removeRepeated(numbersRepeatedValues));
+		assertArrayEquals(expected2, MyArrays.removeRepeated(numbersRepeatedValues));
 	}
 	
 	@Test
