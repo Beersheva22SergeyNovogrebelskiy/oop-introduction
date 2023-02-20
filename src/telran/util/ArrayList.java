@@ -1,12 +1,31 @@
 package telran.util;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ArrayList<T> implements List<T> {
 	static final int DEFAULT_CAPACITY = 16;
 private T [] array;
 private int size;
+private class ArrayListIterator implements Iterator<T> {
+int current = 0;
+	@Override
+	public boolean hasNext() {
+		
+		return current < size;
+	}
+
+	@Override
+	public T next() {
+		if(!hasNext()) {
+			throw new NoSuchElementException();
+		}
+		return array[current++];
+	}
+	
+}
 @SuppressWarnings("unchecked")
 public ArrayList(int capacity) {
 	array = (T[])new Object[capacity];
@@ -40,12 +59,17 @@ public ArrayList() {
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
 		int oldSize = size;
-		for (int i = size - 1; i >= 0; i--) {
+		int tIndex = 0;
+		for (int i = 0; i < oldSize; i++) {
 			if (predicate.test(array[i])) {
-				remove(i);
+				size--;
+			} else {
+				array[tIndex++] = array[i];
 			}
 		}
+		Arrays.fill(array, size, oldSize, null);
 		return oldSize > size;
+		
 	}
 
 	@Override
@@ -60,11 +84,7 @@ public ArrayList() {
 		return size;
 	}
 
-	@Override
-	public boolean contains(T pattern) {
-		
-		return indexOf(pattern) > -1;
-	}
+	
 
 	@Override
 	public T[] toArray(T[] ar) {
@@ -92,9 +112,9 @@ public ArrayList() {
 	public T remove(int index) {
 		checkIndex(index, false);
 		T res = array[index];
-		array[index] = null;
 		size--;
 		System.arraycopy(array, index + 1, array, index, size - index);
+		array[size] = null;
 		return res;
 	}
 
@@ -126,18 +146,17 @@ public ArrayList() {
 		return array[index];
 	}
 
-	private void checkIndex(int index, boolean sizeIncluded) {
-		int sizeDelta = sizeIncluded ? 0 : 1;
-		if (index < 0 || index > size - sizeDelta) {
-			throw new IndexOutOfBoundsException(index);
-		}
-		
-	}
+	
 	@Override
 	public void set(int index, T element) {
 		checkIndex(index, false);
 		array[index] = element;
 
+	}
+	@Override
+	public Iterator<T> iterator() {
+		
+		return new ArrayListIterator();
 	}
 
 }

@@ -116,6 +116,8 @@ class ArrayListTest {
 	@Test
 	void testIndexOf() {
 		for(int i = 0; i < numbers.length; i++) {
+			System.out.println(i);
+			System.out.println(list.indexOf(numbers[i]));
 			assertEquals(i, list.indexOf(numbers[i]));
 		}
 	}
