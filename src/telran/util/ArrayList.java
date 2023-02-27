@@ -46,17 +46,6 @@ public ArrayList() {
 	}
 
 	@Override
-	public boolean remove(T pattern) {
-		boolean res = false;
-		int index = indexOf(pattern);
-		if (index > -1) {
-			res = true;
-			remove(index);
-		}
-		return res;
-	}
-
-	@Override
 	public boolean removeIf(Predicate<T> predicate) {
 		int oldSize = size;
 		int tIndex = 0;
@@ -127,10 +116,6 @@ public ArrayList() {
 		return index < size ? index : -1;
 	}
 
-	private boolean isEqual(T element, T pattern) {
-		
-		return element == null  ? element == pattern : element.equals(pattern);
-	}
 	@Override
 	public int lastIndexOf(T pattern) {
 		int index = size - 1;

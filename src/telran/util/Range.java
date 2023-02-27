@@ -7,11 +7,12 @@ public class Range implements Iterable<Integer> {
 	private static final String EXCEPTION_MESSAGE = "max value must be greater than min value";
 	int min;
 	int max;
+	
 private class RangeIterator implements Iterator<Integer> {
 int current = min;
+
 	@Override
 	public boolean hasNext() {
-		
 		return current < max;
 	}
 
@@ -22,11 +23,10 @@ int current = min;
 		}
 		return current++;
 	}
-	
 }
+
 	@Override
 	public Iterator<Integer> iterator() {
-		
 		return new RangeIterator();
 	}
 
@@ -37,6 +37,7 @@ int current = min;
 		this.min = min;
 		this.max = max;
 	}
+	
 	public boolean checkNumber(int number) {
 		return number >= min && number < max;
 	}

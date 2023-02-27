@@ -8,6 +8,10 @@ boolean removeIf(Predicate<T> predicate);
 boolean isEmpty();
 int size();
 boolean contains(T pattern);
+default boolean isEqual(T element, T pattern) {
+	
+	return element == null  ? element == pattern : element.equals(pattern);
+}
 /*******************************/
 /**
  * 

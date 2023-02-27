@@ -14,7 +14,16 @@ public interface List<T> extends Collection<T>{
 		}
 		
 	}
-	@Override
+	default public boolean remove(T pattern) {
+		boolean res = false;
+		int index = indexOf(pattern);
+		if(index > -1) {
+			res = true;
+			remove(index);
+		}
+		return false;
+	}
+	
 	default boolean contains(T pattern) {
 		
 		return indexOf(pattern) > -1;
