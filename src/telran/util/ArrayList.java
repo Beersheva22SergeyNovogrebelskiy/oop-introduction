@@ -110,7 +110,7 @@ public ArrayList() {
 	@Override
 	public int indexOf(T pattern) {
 		int index = 0;
-		while(index < size && !isEqual(array[index], pattern)) {
+		while (index < size && !isEqual(array[index], pattern)) {
 			index++;
 		}
 		return index < size ? index : -1;
@@ -119,7 +119,7 @@ public ArrayList() {
 	@Override
 	public int lastIndexOf(T pattern) {
 		int index = size - 1;
-		while(index >= 0 && !isEqual(array[index], pattern)) {
+		while (index >= 0 && !isEqual(array[index], pattern)) {
 			index--;
 		}
 		return index;

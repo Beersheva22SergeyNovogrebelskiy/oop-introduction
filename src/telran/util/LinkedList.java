@@ -22,7 +22,6 @@ public class LinkedList<T> implements List<T> {
 
 	private class LinkedListIterator implements Iterator<T> {
 		Node<T> current = head;
-		//boolean flNext = false;
 		@Override
 		public boolean hasNext() {
 			
@@ -36,7 +35,6 @@ public class LinkedList<T> implements List<T> {
 			}
 			T res = current.obj;
 			current = current.next;
-			//flNext = true;
 			return res;
 		}
 
