@@ -10,6 +10,7 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		T obj;
 		Node<T> prev;
 		Node<T> next;
+		
 		Node(T obj) {
 			this.obj = obj;
 		}
@@ -62,23 +63,14 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		return true;
 	}
 
-	private void removeNode(Node<T> node) {
-		Node<T> next = node.next;
-		Node<T> prev = node.prev;
-		if (prev == null) {
-			head = next;
+	private void removeNode(Node<T> current) {
+		if (current == head) {
+			removeHead();
+		} else if (current == tail) {
+			removeTail();
 		} else {
-			prev.next = next;
-			node.prev = null;
+			removeMiddle(current);
 		}
-
-		if (next == null) {
-			tail = prev;
-		} else {
-			next.prev = prev;
-			node.next = null;
-		}
-		node.obj = null;
 		size--;
 	}
 
@@ -86,7 +78,7 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		Node<T> prev = current.prev;
 		Node<T> next = current.next;
 		prev.next = next;
-		next.prev = prev;
+		next.prev = prev;	
 	}
 
 	private void removeTail() {
@@ -102,7 +94,7 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 			Node<T> next = head.next;
 			next.prev = null;
 			head = next;
-		}
+		}	
 	}
 
 	@Override
@@ -133,8 +125,9 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		node.next = nodeIndex;
 		size++;
 	}
-
+	
 	//Comments only for LinkedList task of loop existence
+	
 	public void setNext(int index1, int index2) {
 		//sets next of element at index1 to element at index2
 		if (index1 < index2) {
@@ -156,7 +149,6 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 	}
 
 	private Node<T> getNode(int index) {
-		
 		return index < size / 2 ? getNodeFromLeft(index) : getNodeFromRight(index);
 	}
 
@@ -181,7 +173,7 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		node.next = head;
 		head.prev = node;
 		head = node;
-		size++;	
+		size++;
 	}
 
 	@Override
@@ -231,5 +223,5 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		Node<T> node = getNode(index);
 		node.obj = element;
 	}
-	
+
 }
