@@ -19,11 +19,13 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 	private Node<T> head;
 	private Node<T> tail;
 
+
 	private class LinkedListIterator implements Iterator<T> {
 		Node<T> current = head;
 		boolean flNext = false;
 		@Override
 		public boolean hasNext() {
+			
 			return current != null;
 		}
 
@@ -37,7 +39,6 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 			flNext = true;
 			return res;
 		}
-		
 		@Override
 		public void remove() {
 			if(!flNext) {
@@ -47,6 +48,7 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 			removeNode(removedNode);
 			flNext = false;
 		}
+
 	}
 
 	@Override
@@ -59,9 +61,14 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 			node.prev = tail;
 			tail = node;
 		}
+
 		size++;
 		return true;
 	}
+
+	
+
+//	
 
 	private void removeNode(Node<T> current) {
 		if (current == head) {
@@ -71,21 +78,32 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		} else {
 			removeMiddle(current);
 		}
+
+		
 		size--;
+		
 	}
+
+
 
 	private void removeMiddle(Node<T> current) {
 		Node<T> prev = current.prev;
 		Node<T> next = current.next;
 		prev.next = next;
-		next.prev = prev;	
+		next.prev = prev;
+		
 	}
+
+
 
 	private void removeTail() {
 		Node<T> prev = tail.prev;
 		prev.next = null;
 		tail = prev;
+		
 	}
+
+
 
 	private void removeHead() {
 		if (head.next == null) {
@@ -94,8 +112,12 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 			Node<T> next = head.next;
 			next.prev = null;
 			head = next;
-		}	
+		}
+		
 	}
+
+
+	
 
 	@Override
 	public Iterator<T> iterator() {
@@ -113,6 +135,7 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		} else {
 			addMiddle(index, element);
 		}
+
 	}
 
 	private void addMiddle(int index, T element) {
@@ -124,10 +147,11 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		nodeIndex.prev = node;
 		node.next = nodeIndex;
 		size++;
+		
+		
 	}
-	
+	/************************************************************************************/
 	//Comments only for LinkedList task of loop existence
-	
 	public void setNext(int index1, int index2) {
 		//sets next of element at index1 to element at index2
 		if (index1 < index2) {
@@ -135,8 +159,8 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		}
 		getNode(index1).next = getNode(index2);
 	}
-	
 	public boolean hasLoop() {
+		
 		Node<T> runner = head;
 		Node<T> fastRunner = head;
 		boolean res = runner == fastRunner && runner != head;
@@ -147,8 +171,10 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		}
 		return res;
 	}
+	/*********************************************************************************************/
 
 	private Node<T> getNode(int index) {
+		
 		return index < size / 2 ? getNodeFromLeft(index) : getNodeFromRight(index);
 	}
 
@@ -174,6 +200,7 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		head.prev = node;
 		head = node;
 		size++;
+		
 	}
 
 	@Override
@@ -222,6 +249,8 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		checkIndex(index, false);
 		Node<T> node = getNode(index);
 		node.obj = element;
+		
+
 	}
 
 }

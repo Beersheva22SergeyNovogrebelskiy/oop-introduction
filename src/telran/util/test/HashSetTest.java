@@ -25,6 +25,7 @@ public class HashSetTest extends SetTest {
 	@Override
 	@Test
 	void testIterator() {
+		
 		Predicate<Integer> allPredicate = n -> true;
 		HashSet<Integer> set = new HashSet<>();
 		fillSet(set, new Integer[] {0, 16, 32, 48, 512, 128});
@@ -35,7 +36,9 @@ public class HashSetTest extends SetTest {
 			fillSet(set, bigArray);
 			set.removeIf(allPredicate);
 			assertTrue(set.isEmpty());
+			
 		}
+		
 	}
 
 	private Integer[] getRandomArray() {
@@ -49,7 +52,7 @@ public class HashSetTest extends SetTest {
 	private void fillSet(HashSet<Integer> set, Integer[] numbers) {
 		for(Integer num: numbers) {
 			set.add(num);
-		}	
+		}
+		
 	}
-	
 }
