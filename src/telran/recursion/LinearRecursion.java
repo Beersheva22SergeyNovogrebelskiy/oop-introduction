@@ -72,11 +72,24 @@ public class LinearRecursion {
 		int tmp = ar[firstIndex];
 		ar[firstIndex] = ar[lastIndex];
 		ar[lastIndex] = tmp;
-
 	}
 
 	public static boolean isSubstring(String str, String substr) {
-		return false;
+		boolean res = false;
+		if (str.length() >= substr.length()) {
+			res = isEqual(str, substr) ? true : isSubstring(str.substring(1), substr);
+		} 
+		return res;
+	}
+
+	private static boolean isEqual(String str, String substr) {
+		boolean res = false;
+		if (substr.length() == 0) {
+			res = true;
+		} else if (str.charAt(0) == substr.charAt(0)) {
+			res = isEqual(str.substring(1), substr.substring(1));
+		}
+		return res;
 	}
 	
 }
