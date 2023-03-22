@@ -20,8 +20,6 @@ public abstract class SetTest extends CollectionTest {
 	void testAdd() {
 		assertTrue(set.add(Integer.MAX_VALUE));
 		assertFalse(set.add(Integer.MAX_VALUE));
-
 	}
-
 	
 }

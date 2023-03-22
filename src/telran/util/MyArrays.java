@@ -10,7 +10,6 @@ static public <T> void sort(T[] objects, Comparator<T> comparator) {
 	do {
 		length--;
 	}while(moveMaxAtEnd(objects, length, comparator));
-	
 }
 
 private static <T> boolean moveMaxAtEnd(T[] objects, int length, Comparator<T> comp) {
@@ -28,7 +27,6 @@ private static <T> void swap(T[] objects, int i, int j) {
 	T tmp = objects[i];
 	objects[i] = objects[j];
 	objects[j] = tmp;
-	
 }
 
 public static <T> int binarySearch(T[] arraySorted, T key, Comparator<T> comp) {
@@ -73,17 +71,19 @@ public static <T> T[] removeRepeated(T[] array) {
 		return res;
 	});
 }
+
 public static <T> boolean contains(T[] array, T pattern) {
 	int index = 0;
 	while(index < array.length && !isEqual(array[index], pattern)) {
 		index++;
 	}
-	
 	return index < array.length;
 }
+
 static private boolean isEqual(Object element, Object pattern) {
 	return element == null ? element == pattern : element.equals(pattern);
 }
+
 public static <T> String join(T[] array, String delimiter) {
 	String res = "";
 	if (array.length > 0) {
@@ -94,13 +94,6 @@ public static <T> String join(T[] array, String delimiter) {
 		res = builder.toString();
 	}
 	return res;
-}
-
-static <T> void printArray(T[] array) {
-	for(T element: array) {
-		System.out.print(element + "\t");
-	}
-	System.out.println();
 }
 
 }
