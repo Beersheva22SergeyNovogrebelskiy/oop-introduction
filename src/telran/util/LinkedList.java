@@ -1,27 +1,29 @@
 package telran.util;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.function.Predicate;
 
 public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
-	private static class Node<T> {
+	 static class Node<T> {
 		T obj;
 		Node<T> prev;
 		Node<T> next;
+		
 		Node(T obj) {
 			this.obj = obj;
 		}
 	}
+
 	private Node<T> head;
-	private Node<T> tail;
+			Node<T> tail;
+
 
 	private class LinkedListIterator implements Iterator<T> {
 		Node<T> current = head;
 		boolean flNext = false;
 		@Override
 		public boolean hasNext() {
+			
 			return current != null;
 		}
 
@@ -35,7 +37,6 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 			flNext = true;
 			return res;
 		}
-		
 		@Override
 		public void remove() {
 			if(!flNext) {
@@ -45,6 +46,7 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 			removeNode(removedNode);
 			flNext = false;
 		}
+
 	}
 
 	@Override
@@ -57,11 +59,16 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 			node.prev = tail;
 			tail = node;
 		}
+
 		size++;
 		return true;
 	}
 
-	private void removeNode(Node<T> current) {
+	
+
+//	
+
+	 void removeNode(Node<T> current) {
 		if (current == head) {
 			removeHead();
 		} else if (current == tail) {
@@ -69,8 +76,13 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		} else {
 			removeMiddle(current);
 		}
+
+		
 		size--;
+		
 	}
+
+
 
 	private void removeMiddle(Node<T> current) {
 		Node<T> prev = current.prev;
@@ -80,12 +92,16 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		
 	}
 
+
+
 	private void removeTail() {
 		Node<T> prev = tail.prev;
 		prev.next = null;
 		tail = prev;
 		
 	}
+
+
 
 	private void removeHead() {
 		if (head.next == null) {
@@ -95,10 +111,15 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 			next.prev = null;
 			head = next;
 		}
+		
 	}
+
+
+	
 
 	@Override
 	public Iterator<T> iterator() {
+		
 		return new LinkedListIterator();
 	}
 
@@ -112,6 +133,7 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		} else {
 			addMiddle(index, element);
 		}
+
 	}
 
 	private void addMiddle(int index, T element) {
@@ -123,6 +145,8 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		nodeIndex.prev = node;
 		node.next = nodeIndex;
 		size++;
+		
+		
 	}
 	/************************************************************************************/
 	//Comments only for LinkedList task of loop existence
@@ -133,8 +157,8 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		}
 		getNode(index1).next = getNode(index2);
 	}
-	
 	public boolean hasLoop() {
+		
 		Node<T> runner = head;
 		Node<T> fastRunner = head;
 		boolean res = runner == fastRunner && runner != head;
@@ -174,12 +198,14 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		head.prev = node;
 		head = node;
 		size++;
+		
 	}
 
 	@Override
 	public T remove(int index) {
 		checkIndex(index, false);
 		Node<T> removedNode = getNode(index);
+		
 		if (removedNode == null) {
 			throw new IllegalStateException("removedNode in method remove is null");
 		}
@@ -221,6 +247,10 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		checkIndex(index, false);
 		Node<T> node = getNode(index);
 		node.obj = element;
+		
+
 	}
 	
+	
+
 }

@@ -24,8 +24,8 @@ public abstract class ListTest extends CollectionTest {
 	  assertTrue(list.add(numbers[0]));
 	  assertEquals(numbers.length + 1, list.size());
   }
-  
   @Test
+  
 	void testAddInt() {
 		Integer [] expected1 = {10, 100, -5, 100, 134, 280, 120, 15};
 		Integer [] expected2 = {8, 10, 100, -5, 100, 134, 280, 120, 15};
@@ -59,6 +59,7 @@ public abstract class ListTest extends CollectionTest {
 	void testIndexOf() {
 		for(int i = 0; i < numbers.length; i++) {
 			assertEquals(i, list.indexOf(numbers[i]));
+			
 		}
 		assertEquals(-1,list.lastIndexOf(Integer.MAX_VALUE));
 	}
@@ -69,6 +70,7 @@ public abstract class ListTest extends CollectionTest {
 		assertEquals(3, list.indexOf(134));
 		assertEquals(4, list.lastIndexOf(134));
 		assertEquals(-1,list.lastIndexOf(Integer.MAX_VALUE));
+		
 	}
 
 	@Test
@@ -86,16 +88,5 @@ public abstract class ListTest extends CollectionTest {
 		assertEquals(1000, list.get(0));
 	}
 	
-	@Test
-	@Override
-	void testIterator() {
-		Integer actual[] = new Integer[numbers.length];
-		int index = 0;
-		Iterator<Integer> it = list.iterator();
-		while(it.hasNext()) {
-			actual[index++] = it.next();
-		}
-		assertArrayEquals(numbers, actual);
-	}
 
 }
